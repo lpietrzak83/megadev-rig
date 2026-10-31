@@ -17,13 +17,15 @@ export function createApp(config: RigConfig = loadConfig()) {
     return digest === null ? c.notFound() : c.json(digest);
   });
 
-  app.get('/', (c) =>
-    c.html(
+  app.get('/', (c) => {
+    const status = readStatus(config);
+    const digests = new Map(status.nights.map(night => [night, readNight(config.runsDir, night)]));
+    return c.html(
       <Layout title="status" lane={lane()}>
-        <StatusBoard status={readStatus(config)} />
+        <StatusBoard status={status} digests={digests} />
       </Layout>,
-    ),
-  );
+    );
+  });
 
   app.get('/digest/:night', (c) => {
     const digest = readNight(config.runsDir, c.req.param('night'));
