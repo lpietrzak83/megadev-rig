@@ -1,8 +1,9 @@
 ---
 plan: morning-digest
-status: ready
+status: done
 owner: rook
 opened: 2026-10-29
+closed: 2026-10-31
 ---
 
 # Morning digest
@@ -77,3 +78,27 @@ page again with `LANE_MARKER` unset (the banner reads "no marker set") and uploa
 link. Move this plan to `docs/plans/done/` with its issue list.
 
 Done when: the preview link no longer shows the lane marker.
+
+## Issues
+
+| # | Issue | Plan section | Blocked by | Worker |
+|---|-------|--------------|------------|--------|
+| [1](https://github.com/lpietrzak83/megadev-rig/issues/1) | Read and aggregate nightly run logs | § 1 | — | Codex · gpt-6-astra · high |
+| [2](https://github.com/lpietrzak83/megadev-rig/issues/2) | Render the nightly digest page | § 2a | #1 (shared types) | Codex · gpt-6.1-sol · medium |
+| [3](https://github.com/lpietrzak83/megadev-rig/issues/3) | Expose the nightly digest as JSON | § 2b | #1 (shared types) | Codex · gpt-6.1-sol · medium |
+| [4](https://github.com/lpietrzak83/megadev-rig/issues/4) | Link board nights to their digests with status counts | § 2c | #1 (shared types) | Codex · gpt-6.1-sol · medium |
+| [5](https://github.com/lpietrzak83/megadev-rig/issues/5) | Test the HTML and JSON digest routes | § 2d | #2, #3 | Codex · gpt-6.1-sol · medium |
+| [6](https://github.com/lpietrzak83/megadev-rig/issues/6) | Publish the HTML digest copy for review | § 3 | #1–#5; reviewer inspection | Codex · session model/effort not exposed |
+| [7](https://github.com/lpietrzak83/megadev-rig/issues/7) | Remove the preview marker and archive the completed plan | § 4 | #6 after reviewer inspection | Codex · session model/effort not exposed |
+
+## Review and cleanup
+
+The course confirmed that the reviewer had seen the marked preview before cleanup. After human approval, the page was exported again with `LANE_MARKER` unset and uploaded over the same public URL:
+
+https://megadev-rig-review.lukashp.chatgpt.site
+
+An unauthenticated HTTPS readback matches the clean export byte for byte, contains no lane marker and shows `no marker set`. The digest data is unchanged.
+
+## Verification
+
+Implementation commit `3c2f8f8f3c3697731fd3859800a8ffba156fbafd` passed 35 tests and `pnpm typecheck`. Independent code and public-preview reviews found no required changes. The archive changes documentation only.
